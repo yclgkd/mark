@@ -33,7 +33,7 @@ class Mail
         $mail->SMTPAuth = true;
         //发信者邮箱
         $mail->Username = "kk@heifuture.com";
-        $mail->Password = "9bGdGuL9";
+        $mail->Password = "JXUST2017ycl#";
         $mail->SMTPSecure = "ssl";
         $mail->Port = 465;
         //邮件正文是否为html编码

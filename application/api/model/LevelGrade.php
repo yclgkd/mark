@@ -42,6 +42,7 @@ class LevelGrade
         return $result;
     }
 
+    //登录等级考试的页面
     private function getLevelGradePage($studentID, $password, $cookie)
     {
         (new Login())->doLogin($studentID, $password, $cookie);
