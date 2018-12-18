@@ -21,7 +21,7 @@ class CheckParams
         (new StudentID())->gocheck1($data);
         //校验密码
         $data = ['password' => $password];
-        (new Password())->goCheck1($data);
+        (new Password())->goCheck($data);
         return true;
     }
 }

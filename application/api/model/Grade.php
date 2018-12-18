@@ -39,7 +39,7 @@ class Grade
         }
         preg_match('/未查询到数据/', $gradePage, $isNull);
         if (!empty($isNull[0])) {
-            throw new MissException(['code'=>'404', 'msg'=>'请求的成绩不存在', 'errorCode'=>'40000']);
+            throw new MissException(['code'=>'400', 'msg'=>'请求的成绩不存在', 'errorCode'=>'40000']);
         }
         //获取课程名，并保存到$courseName中
         preg_match_all('/<td align="left">([^<>\n]+)/',

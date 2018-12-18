@@ -36,6 +36,8 @@ class Action
         $ch = curl_init();
         //设置提交的url
         curl_setopt($ch, CURLOPT_URL, $url);
+//        //设置头文件的信息作为数据流输出
+//        curl_setopt($ch, CURLOPT_HEADER, 0);
         //设置获取的信息以文件流的形式返回，而不是直接输出。
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -57,6 +59,7 @@ class Action
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);   //没有这个会自动输出，不用print_r();也会在后面多个1
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
         $output = curl_exec($ch);

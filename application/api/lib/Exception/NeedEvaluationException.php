@@ -11,7 +11,7 @@ namespace app\api\lib\Exception;
 
 class NeedEvaluationException extends BaseException
 {
-    public $code = 404;
+    public $code = 400;
     public $msg = '请先评教';
     public $errorCode = 40001;
 }

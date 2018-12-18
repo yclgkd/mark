@@ -8,7 +8,6 @@
 
 namespace app\api\model;
 
-
 use app\api\lib\Exception\FailSendException;
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -32,8 +31,8 @@ class Mail
         //是否使用身份验证
         $mail->SMTPAuth = true;
         //发信者邮箱
-        $mail->Username = "kk@heifuture.com";
-        $mail->Password = "JXUST2017ycl#";
+        $mail->Username = "*****";
+        $mail->Password = "*****";
         $mail->SMTPSecure = "ssl";
         $mail->Port = 465;
         //邮件正文是否为html编码
