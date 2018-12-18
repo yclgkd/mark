@@ -15,14 +15,15 @@ class LevelGrade
 {
     public function getLevelGrade($studentID, $password, $cookie)
     {
-        $result = $this->dataHandle($studentID, $password, $cookie);
+        (new Login())->doLogin($studentID, $password, $cookie);
+        $page = $this->getLevelGradePage($cookie);
+        $result = $this->dataHandle($page);
         return $result;
     }
 
-    private function dataHandle($studentID, $password, $cookie)
+    private function dataHandle($page)
     {
-        $levelGradePage = $this->getLevelGradePage($studentID, $password, $cookie);
-        preg_match_all('/(<td>|<td align="left">)([^<>\n]+)/', $levelGradePage, $isNull);
+        preg_match_all('/(<td>|<td align="left">)([^<>\n]+)/', $page, $isNull);
         if (!empty($isNull)) {
             if ($isNull[1] == '未查询到数据') {
                 throw new MissException();
@@ -43,9 +44,8 @@ class LevelGrade
     }
 
     //登录等级考试的页面
-    private function getLevelGradePage($studentID, $password, $cookie)
+    private function getLevelGradePage($cookie)
     {
-        (new Login())->doLogin($studentID, $password, $cookie);
         $url = "http://172.16.2.39/jsxsd/kscj/djkscj_list";
         $levelGradePage = (new Login())->loginCurl($url, "", $cookie);
         return $levelGradePage;
