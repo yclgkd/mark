@@ -18,11 +18,11 @@ class TestLogin extends Controller
     public function testLogin()
     {
 
-        $url = "https://api.heifuture.com/api/v1/login?studentID=1520163452&password=9bGdGuL9";
+        $url = "https://api.heifuture.com/api/v1/login?studentID=***&password=***";
         $result = Action::curl_get($url);
         $result = get_object_vars($result);//将对象转化成数组
-        $studentID = "1520163452";
-        $password = "9bGdGuL";
+        $studentID = "***";
+        $password = "***";
         //是否登录成功
         if (array_key_exists('studentID', $result)) {
             $check1 = Db::table('student')
