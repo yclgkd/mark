@@ -11,33 +11,35 @@ namespace app\api\model;
 
 use app\api\lib\Exception\MissException;
 use app\api\lib\Exception\MissGradeException;
+use app\api\lib\Exception\NeedEvaluationException;
 
 class Grade
 {
     public function getGrade($semester, $studentID, $password, $cookie)
     {
-        $result = $this->dataHandle($semester, $studentID, $password, $cookie);
+        (new Login())->doLogin($studentID, $password, $cookie);
+        $gradePage = $this->getGradePage($semester, $cookie);
+        $result = $this->dataHandle($gradePage);
         return $result;
     }
 
 
     /**
-     * 对成绩数据进行数据处理
-     * @param $semester
-     * @param $studentID
-     * @param $password
-     * @param $cookie
-     * @return array
-     * @throws MissException
+     * @param $gradePage 成绩页面
+     * @return array 成绩
+     * @throws MissException 成绩不存在
+     * @throws NeedEvaluationException 未评教
      */
-    private function dataHandle($semester, $studentID, $password, $cookie)
+    private function dataHandle($gradePage)
     {
-        $gradePage = $this->getGradePage($semester, $studentID, $password, $cookie);
-        preg_match('/<td colspan="11">([^<>\n]+)/', $gradePage, $isNull);
-        if (!empty($isNull)){
-            if ($isNull[1] == '未查询到数据'){
-                throw new MissException();
-            }
+
+        preg_match_all('/请评教/', $gradePage, $isNeedEvaluate);
+        if (!empty($isNeedEvaluate[0])) {
+            throw new NeedEvaluationException();
+        }
+        preg_match('/未查询到数据/', $gradePage, $isNull);
+        if (!empty($isNull[0])) {
+            throw new MissException(['code'=>'404', 'msg'=>'请求的成绩不存在', 'errorCode'=>'40000']);
         }
         //获取课程名，并保存到$courseName中
         preg_match_all('/<td align="left">([^<>\n]+)/',
@@ -62,7 +64,7 @@ class Grade
                 ];
                 $j += 2;
             }
-        }else{
+        } else {
             for ($i = 0, $j = 1; $i < $courseNum; $i++) {
                 $result[$i] = [
                     'courseName' => $matchesName[1][$j],
@@ -76,9 +78,9 @@ class Grade
         return $result;
     }
 
-    public function getGradePage($semester, $studentID, $password, $cookie)
+    //获取成绩页面
+    public function getGradePage($semester, $cookie)
     {
-        (new Login())->doLogin($studentID, $password, $cookie);
         $url = "http://172.16.2.39/jsxsd/kscj/cjcx_list?kksj=" . $semester . "&kcxz=&kcmc=&xsfs=all";
         $gradePage = (new Login())->loginCurl($url, "", $cookie);
         return $gradePage;
