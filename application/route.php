@@ -20,4 +20,4 @@ Route::get('api/:version/change', 'api/:version.ChangePassword/changePassword');
 Route::get('api/:version/mail', 'api/:version.Mail/email');
 Route::get('api/:version/levelGrade', 'api/:version.LevelGrade/levelGrade');
 Route::get('api/:version/evaluate', 'api/:version.TeachingEvaluation/teachingEvaluation');
-Route::get('api/:version/testGrade', 'api/:version.TestGrade/testGrade');
+Route::get('api/:version/exam', 'api/:version.ExaminationArrangement/examinationArrangement');
