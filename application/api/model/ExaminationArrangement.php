@@ -30,7 +30,7 @@ class ExaminationArrangement
 
     private function dataHandle($page)
     {
-        preg_match_all('/<td>([^<>\n]+)<\/td>/', $page, $matches);
+        preg_match_all('/<td>([^<>\n]*)<\/td>/', $page, $matches);
         if (empty($matches[0])) {
             throw new MissException(['msg'=>'暂无考试安排', 'errorCode'=>40004]);
         }

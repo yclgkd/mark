@@ -15,7 +15,6 @@ Route::get('api/:version/login', 'api/:version.Login/login');
 Route::get('api/:version/grade', 'api/:version.Grade/grade');
 Route::get('api/:version/timetable', 'api/:version.Timetable/timetable');
 Route::get('api/:version/reset', 'api/:version.ResetPassword/resetPassword');
-Route::get('api/:version/test', 'api/:version.TestLogin/testLogin');
 Route::get('api/:version/change', 'api/:version.ChangePassword/changePassword');
 Route::get('api/:version/mail', 'api/:version.Mail/email');
 Route::get('api/:version/levelGrade', 'api/:version.LevelGrade/levelGrade');
