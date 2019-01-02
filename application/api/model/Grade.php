@@ -39,41 +39,27 @@ class Grade
         }
         preg_match('/未查询到数据/', $gradePage, $isNull);
         if (!empty($isNull[0])) {
-            throw new MissException(['code'=>'400', 'msg'=>'请求的成绩不存在', 'errorCode'=>'40000']);
+            throw new MissException(['code' => '400', 'msg' => '请求的成绩不存在', 'errorCode' => '40000']);
         }
         //获取课程名，并保存到$courseName中
-        preg_match_all('/<td align="left">([^<>\n]+)/',
+        preg_match_all('/<td align="left">([^<>\n]*)/',
             $gradePage, $matchesName);
         //获取成绩
         preg_match_all('/700,500\)">([^<>\n]+)/',
             $gradePage, $matchesGrade);
         //获取学分、绩点
-        preg_match_all('/<td>([^<>\n]+)/',
+        preg_match_all('/<td>([^<>\n]*)/',
             $gradePage, $matchesOther);
         $courseNum = count($matchesName[1]) / 2;
         $result[] = [];
-        preg_match('/^(-?\d+)(\.\d+)?/', $matchesOther[1][4], $check);
-        //如果绩点那一项为空
-        if (empty($check)) {
-            for ($i = 0, $j = 1; $i < $courseNum; $i++) {
-                $result[$i] = [
-                    'courseName' => $matchesName[1][$j],
-                    'credit' => $matchesOther[1][2 + $i * 7],
-                    'coursePoint' => '',
-                    'courseGrade' => $matchesGrade[1][$i]
-                ];
-                $j += 2;
-            }
-        } else {
-            for ($i = 0, $j = 1; $i < $courseNum; $i++) {
-                $result[$i] = [
-                    'courseName' => $matchesName[1][$j],
-                    'credit' => $matchesOther[1][2 + $i * 8],
-                    'coursePoint' => $matchesOther[1][4 + $i * 8],
-                    'courseGrade' => $matchesGrade[1][$i]
-                ];
-                $j += 2;
-            }
+        for ($i = 0, $j = 1; $i < $courseNum; $i++) {
+            $result[$i] = [
+                'courseName' => $matchesName[1][$j],
+                'credit' => $matchesOther[1][2 + $i * 10],
+                'coursePoint' => $matchesOther[1][4 + $i * 10],
+                'courseGrade' => $matchesGrade[1][$i]
+            ];
+            $j += 2;
         }
         return $result;
     }
