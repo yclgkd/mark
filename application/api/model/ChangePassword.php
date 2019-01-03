@@ -55,10 +55,13 @@ class ChangePassword
         $result = $this->loginCurl($url, $post, $cookie);
         try {
             preg_match_all('/<font color="blue"><b>([^<>\n]+)/', $result, $msg);
-            if ($msg[1][0] == "密码过于简单，请重新设置密码") {
+            preg_match_all('/登录/', $result, $condition);
+            //注意或逻辑运算两边位置不可调！用于判断原密码是否正确
+            if (empty($condition[0]) || $msg[1][0] == "密码过于简单，请重新设置密码") {
                 return true;
             }
         } catch (Exception $e) {
+            //原密码错误
             throw new OldPasswordException();
         }
     }
