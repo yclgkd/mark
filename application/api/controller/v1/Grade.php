@@ -21,6 +21,7 @@ class Grade extends Controller
 {
     public function grade($semester, $studentID, $password)
     {
+        $password = urlencode($password);
         $cookie = GetCookie::getCookie();
         CheckParams::checkParams($studentID, $password);
         $result = (new GradeModel())->getGrade($semester, $studentID, $password, $cookie);

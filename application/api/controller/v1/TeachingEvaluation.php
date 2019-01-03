@@ -17,6 +17,7 @@ class TeachingEvaluation extends Controller
 {
     public function teachingEvaluation($studentID, $password)
     {
+        $password = urlencode($password);
         $cookie = GetCookie::getCookie();
         CheckParams::checkParams($studentID, $password);
         $result = (new TeachingEvaluationModel())->doTeachingEvaluation($studentID, $password, $cookie);

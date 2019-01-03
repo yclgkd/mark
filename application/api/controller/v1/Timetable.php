@@ -17,6 +17,7 @@ class Timetable
 {
     public function timetable($semester, $studentID, $password)
     {
+        $password = urlencode($password);
         $cookie = GetCookie::getCookie();
         CheckParams::checkParams($studentID, $password);
         $result = (new TimetableModel())->getTimetable($semester, $studentID, $password, $cookie);

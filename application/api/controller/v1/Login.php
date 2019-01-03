@@ -22,6 +22,7 @@ class Login extends Controller
 {
     public function login($studentID, $password)
     {
+        $password = urlencode($password);
         $cookie = GetCookie::getCookie();
         CheckParams::checkParams($studentID, $password);
         $result = (new LoginModel())->doLogin($studentID, $password, $cookie);
