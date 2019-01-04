@@ -24,8 +24,6 @@ class ChangePassword extends Controller
         //校验新密码
 //        $data = ['password' => $newPassword];
 //        (new NewPassword())->goCheck1($data);
-        $oldPassword = urlencode($oldPassword);
-        $newPassword = urlencode($newPassword);
         $cookie = GetCookie::getCookie();
         $result = (new ChangePasswordModel())->changePassword($studentID, $oldPassword, $newPassword, $cookie);
         return $result;

@@ -16,7 +16,6 @@ use think\Controller;
 class ExaminationArrangement extends Controller
 {
     public function examinationArrangement($studentID, $password){
-        $password = urlencode($password);
         $cookie = GetCookie::getCookie();
         CheckParams::checkParams($studentID, $password);
         $result = (new ExaminationArrangementModel())->getExaminationArrangement($studentID, $password, $cookie);

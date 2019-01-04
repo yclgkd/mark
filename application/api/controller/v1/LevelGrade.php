@@ -21,7 +21,6 @@ class LevelGrade extends Controller
 {
     public function levelGrade($studentID, $password)
     {
-        $password = urlencode($password);
         $cookie = GetCookie::getCookie();
         CheckParams::checkParams($studentID, $password);
         $result = (new LevelGradeModel())->getLevelGrade($studentID, $password, $cookie);
