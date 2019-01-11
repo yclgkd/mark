@@ -15,11 +15,16 @@ use think\Controller;
 
 class TeachingEvaluation extends Controller
 {
-    public function teachingEvaluation($studentID, $password)
+    public function teachingEvaluation($studentID, $password, $read = 0, $auto = 0, $evaluationContent = '')
     {
         $cookie = GetCookie::getCookie();
         CheckParams::checkParams($studentID, $password);
-        $result = (new TeachingEvaluationModel())->doTeachingEvaluation($studentID, $password, $cookie);
-        return $result;
+        if ($read == 0) {
+            $result = (new TeachingEvaluationModel())->doTeachingEvaluation($studentID, $password, $cookie, $auto, $evaluationContent);
+            return $result;
+        } elseif ($read == 1) {
+            $result = (new TeachingEvaluationModel())->evaluationMsg($studentID, $password, $cookie);
+            return $result;
+        }
     }
 }
