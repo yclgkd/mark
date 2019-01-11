@@ -226,7 +226,7 @@ class TeachingEvaluation
         $pj02id = $matches[1];
         //issubmit为0时保存，1时提交
         $post =
-            'issubmit=' . '0' . '&' .
+            'issubmit=' . '1' . '&' .
             'pj09id=' . $pj09id . '&' .
             'pj01id=' . $pj01id . '&' .
             'pj0502id=' . $pj0502id . '&' .
